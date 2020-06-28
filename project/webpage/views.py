@@ -10,7 +10,7 @@ from profiles.models import UserForm
 from profiles.forms import EntryVerification
 from datetime import datetime as dt
 import time
-import os
+from django.urls import resolve
 # Create your views here.
 
 def home_page(request,*args,**kwargs):
@@ -51,6 +51,12 @@ def success_page(request,*args,**kwargs):
     #     except:
     #         print("Not able to write to file")
 
+    #Check URL
+    # url = request.path
+    # if(url == '/success/'):
+    #     time.sleep(3)
+    #     return redirect("http://127.0.0.1:8000/login/")
+
     date_context = {
         "form": form2,
         "date": date
@@ -66,8 +72,14 @@ def admission(request):
     #Button verification
     if(request.method == 'POST'):
         form2 = EntryVerification(request.POST)
-        if request.POST.get('exit') or request.POST.get('enter'):#Reads which button is pressed
-            return redirect("http://127.0.0.1:8000/success/")#Redirects to success page
+    if request.POST.get('exit') or request.POST.get('enter'):#Reads which button is pressed
+        return redirect("http://127.0.0.1:8000/success/")#Redirects to success page
+
+    
+    #Timer for return to login
+    # if(url_name == '/success/'):
+    #     time.sleep(3)#Waits 3 seconds
+    #     return redirect("http://127.0.0.1:8000/login/")
     
     #Passes arguments into html
     admission_context = {
