@@ -25,7 +25,7 @@ def user_login(request):
     #Form Validation
     form1 = UserLogin(request.POST or None)
     if form1.is_valid():
-        #form1.save()
+        form1.save()
         print("Ok")
         current_date_time = dt.now()
         return redirect("http://127.0.0.1:8000/admission/")
@@ -62,7 +62,7 @@ def success_page(request,*args,**kwargs):
 def admission(request):
     #Form variables
     form2 = EntryVerification(request.POST)
-
+    
     #Button verification
     if(request.method == 'POST'):
         form2 = EntryVerification(request.POST)
@@ -71,7 +71,7 @@ def admission(request):
     
     #Passes arguments into html
     admission_context = {
-        "form": form2
+        "form": form2,
     }
 
     return render(request,"admission.html",admission_context)
