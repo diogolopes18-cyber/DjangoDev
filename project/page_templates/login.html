@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 style="font-family:Arial, Helvetica, sans-serif">Welcome to the Login page!</h1></p></p>
+
+<form method="POST"> 
+{% csrf_token %}
+{{form.as_p}}
+<!-- <h2>Username:<input type='text' id="user" name="user"/></h2></p>
+<h2>Password:<input type='password' id="password" name="password"/></h2></p> -->
+<button type='submit' value='Login'>Login</button>
+</form>
+{% endblock %}
