@@ -10,6 +10,7 @@ from profiles.models import UserForm
 from profiles.forms import EntryVerification
 from datetime import datetime as dt
 import time
+import os
 # Create your views here.
 
 def home_page(request,*args,**kwargs):
@@ -24,15 +25,15 @@ def user_login(request):
     #Form Validation
     form1 = UserLogin(request.POST or None)
     if form1.is_valid():
+        #form1.save()
         print("Ok")
         current_date_time = dt.now()
-        print(current_date_time)
         return redirect("http://127.0.0.1:8000/admission/")
 
 
     #Context to be passed ot html page
     context = {
-        "form": form1
+        "form": form1,
     }
     return render(request, "login.html", context)#Returns page for login
 
@@ -41,11 +42,18 @@ def user_login(request):
 def success_page(request,*args,**kwargs):
     date = dt.now()#gets current time
     form2 = EntryVerification(request.POST)
-    username = UserForm(request.POST)
+    #username = UserLogin(request.POST)
+
+    # if(request.path() == "http://127.0.0.1:8000/success/"):
+    #     try:
+    #         with open('time_file.txt','w') as time_file:
+    #             time_file.write(str(date))#Writes distance into file
+    #     except:
+    #         print("Not able to write to file")
+
     date_context = {
         "form": form2,
-        "date": date,
-        "username": username,
+        "date": date
     }
 
 
@@ -54,23 +62,16 @@ def success_page(request,*args,**kwargs):
 def admission(request):
     #Form variables
     form2 = EntryVerification(request.POST)
-    entry_button = request.POST.get('Entrada')
-    exit_button = request.POST.get('Exit')
-
-    #Request username from form
-    username = request.user.username
-    
 
     #Button verification
     if(request.method == 'POST'):
         form2 = EntryVerification(request.POST)
-        return redirect("http://127.0.0.1:8000/success/")#Redirects to success page
-        if(time.sleep(3)):
-            return redirect("http://127.0.0.1:8000/login/")
+        if request.POST.get('exit') or request.POST.get('enter'):#Reads which button is pressed
+            return redirect("http://127.0.0.1:8000/success/")#Redirects to success page
     
     #Passes arguments into html
     admission_context = {
-        "form": form2,
+        "form": form2
     }
 
     return render(request,"admission.html",admission_context)

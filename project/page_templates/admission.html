@@ -6,11 +6,11 @@
 
 <!-- {{username.as_p}} -->
 <body>
-    <h1 style="font-family: Arial, Helvetica, sans-serif;">Welcome {{username}}</h1>
+    <h1 style="font-family: Arial, Helvetica, sans-serif;">Welcome {{request.user.username}}</h1>
     <form method="POST">
         {% csrf_token %}
         {{form.as_p}}
-        <button type="submit" name="entry" value="Entrada" style="background-color: green; font-size: 52px; border-radius: 4px; text-align: center;">Entrada</button></p></p></p>
+        <button type="submit" name="enter" value="Entrada" style="background-color: green; font-size: 52px; border-radius: 4px; text-align: center;">Entrada</button></p></p></p>
         <button type="submit" name="exit" value="Exit" color="red" style="background-color: red; font-size:52px; border-radius: 4px; text-align: center;">Sa&iacute;da</button>
     </form>
 </body>
