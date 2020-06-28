@@ -1,8 +1,6 @@
 # DjangoDev
 Django Framework for workers register
 
-Django Framework for company's workers register
-
 **1. Initialize workspace**
 
 ```
