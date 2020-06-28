@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
+from django.http import Http404 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 #Imports the form
@@ -23,8 +24,6 @@ def user_login(request):
     #Form Validation
     form1 = UserLogin(request.POST or None)
     if form1.is_valid():
-        #instance = form1.save(commit=False)
-        #instance.save()
         print("Ok")
         current_date_time = dt.now()
         print(current_date_time)
@@ -40,14 +39,23 @@ def user_login(request):
     
 
 def success_page(request,*args,**kwargs):
-    return render(request,"success.html",{})#Returns page for successful login
+    date = dt.now()#gets current time
+    form2 = EntryVerification(request.POST)
+    username = UserForm(request.POST)
+    date_context = {
+        "form": form2,
+        "date": date,
+        "username": username,
+    }
+
+
+    return render(request,"success.html",date_context)#Returns page for successful login
 
 def admission(request):
     #Form variables
     form2 = EntryVerification(request.POST)
-    entry_button = request.POST['Entrada']
-    exit_button = request.POST['Exit']
-    date = dt.now()#gets current time
+    entry_button = request.POST.get('Entrada')
+    exit_button = request.POST.get('Exit')
 
     #Request username from form
     username = request.user.username
@@ -56,15 +64,13 @@ def admission(request):
     #Button verification
     if(request.method == 'POST'):
         form2 = EntryVerification(request.POST)
-        if entry_button:
-            redirect("http://127.0.0.1:8000/success/")#Redirects to success page
-            #time.sleep(3)
-            #redirect("http://127.0.0.1:8000/login/")
+        return redirect("http://127.0.0.1:8000/success/")#Redirects to success page
+        if(time.sleep(3)):
+            return redirect("http://127.0.0.1:8000/login/")
     
     #Passes arguments into html
     admission_context = {
         "form": form2,
-        "date": date
     }
 
     return render(request,"admission.html",admission_context)

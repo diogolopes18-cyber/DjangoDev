@@ -6,12 +6,9 @@ from datetime import datetime as dt
 class UserLogin(forms.Form):
     class Meta:
         model = UserForm
-        fields = [
-            'title'
-        ]
-    username = forms.CharField(label="username", max_length=30, min_length=5)
-    password = forms.CharField(label="password", max_length=30,widget=forms.PasswordInput)
-    #current_date = dt.now()
+        widgets = {
+            'password': forms.PasswordInput()
+        }
 
 class EntryVerification(forms.Form):
     date = dt.now()

@@ -6,20 +6,7 @@
 
 <!-- {{username.as_p}} -->
 <body>
-    <h1 style="font-family: Arial, Helvetica, sans-serif;">Welcome {{request.user.username}}</h1>
-    <h1>
-        <style>
-        div {
-          background-color: lightgrey;
-          width: 100px;
-          height: 40px;
-          border: 15px solid green;
-          padding: 25px;
-          margin: 15px;
-        }
-        </style>
-    </h1>
-    <div>{{date}}</div>
+    <h1 style="font-family: Arial, Helvetica, sans-serif;">Welcome {{username}}</h1>
     <form method="POST">
         {% csrf_token %}
         {{form.as_p}}
