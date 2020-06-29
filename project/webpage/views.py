@@ -43,16 +43,16 @@ def success_page(request,*args,**kwargs):
     date = dt.now()#gets current time
     form2 = EntryVerification(request.POST)
     #username = UserLogin(request.POST)
-    global page_counter
+    page_counter = [None] * 200
 
-    if(request.path == '/success/'):
-        page_counter += 1
-    for i in range(page_counter):
-        try:
-            with open('time_file.txt','w') as time_file:
-                time_file.write(str(date))#Writes distance into file
-        except:
-            print("Not able to write to file")
+    for i in range(len(page_counter)):
+        page_counter[i] = date
+        
+    try:
+        with open('time_file.txt','w') as time_file:
+            time_file.write(page_counter+'\n')#Writes distance into file
+    except:
+        print("Not able to write to file")
 
 
     #Check URL
