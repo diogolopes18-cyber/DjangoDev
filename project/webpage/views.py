@@ -25,7 +25,7 @@ def user_login(request):
     #Form Validation
     form1 = UserLogin(request.POST or None)
     if form1.is_valid():
-        form1.save()
+        form1.save()#Saves the form into database
         print("Ok")
         current_date_time = dt.now()
         return redirect("http://127.0.0.1:8000/admission/")
@@ -43,13 +43,17 @@ def success_page(request,*args,**kwargs):
     date = dt.now()#gets current time
     form2 = EntryVerification(request.POST)
     #username = UserLogin(request.POST)
+    global page_counter
 
-    # if(request.path() == "http://127.0.0.1:8000/success/"):
-    #     try:
-    #         with open('time_file.txt','w') as time_file:
-    #             time_file.write(str(date))#Writes distance into file
-    #     except:
-    #         print("Not able to write to file")
+    if(request.path == '/success/'):
+        page_counter += 1
+    for i in range(page_counter):
+        try:
+            with open('time_file.txt','w') as time_file:
+                time_file.write(str(date))#Writes distance into file
+        except:
+            print("Not able to write to file")
+
 
     #Check URL
     # url = request.path
@@ -63,7 +67,7 @@ def success_page(request,*args,**kwargs):
     }
 
 
-    return render(request,"success.html",date_context)#Returns page for successful login
+    return render(request,"success.html",date_context)#Returns page for successful admission
 
 def admission(request):
     #Form variables

@@ -10,5 +10,6 @@ class UserLogin(forms.ModelForm):
             'password': forms.PasswordInput()
         }
         fields = '__all__'
+        date = dt.now()
 class EntryVerification(forms.Form):
     date = dt.now()
