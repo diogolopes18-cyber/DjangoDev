@@ -23,3 +23,8 @@ $ python manage.py migrate
 ```
 http://127.0.0.1:8000/home
 ```
+
+**4. Create superuser**
+```
+$ python manage.py createsuperuser
+```
